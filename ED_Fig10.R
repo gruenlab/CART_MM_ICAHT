@@ -30,9 +30,9 @@ uv <- data.frame(log_HSC_sen = v, age = u)
 
 ggplot(uv, 
        aes(x = age, y = log_HSC_sen)) +
-  geom_point(color = "grey30") +   # optional: change point color
+  geom_point(color = "grey30") +   
   theme_classic() +
-  geom_smooth(method = lm, color = "red", fill = "red") +  # new line + shade colors
+  geom_smooth(method = lm, color = "red", fill = "red") +  
   scale_fill_viridis(discrete = TRUE) +
   sm_statCorr(color = "red", fill = "red", 
               text_size = 5) +
@@ -40,7 +40,7 @@ ggplot(uv,
 
 ##ED10c
 library(Seurat)
-seu <- readRDS("~/human/Aug2024/clean2_PCA40/seurat")
+seu <- readRDS("PATH/to/seurat_obj")
 DimPlot(seu, reduction = "umap")
 
 s.genes <- cc.genes$s.genes
@@ -53,7 +53,7 @@ seu <- CellCycleScoring(seu,
                         g2m.features = g2m.genes, 
                         set.ident = TRUE)
 library(stringr)
-meta.data<-readRDS("~/human/Aug2024/clean2_PCA40/meta.data.clean2PCA40_broad")
+meta.data<-readRDS("PATH/to/suppl_table_8")
 seu@meta.data$sample<-meta.data$sample
 
 metadata<- seu@meta.data
@@ -94,11 +94,10 @@ if(organism == "human"){
 lr_network <- lr_network %>% distinct(from, to)
 head(lr_network)
 
-ligand_target_matrix[1:5,1:5] # target genes in rows, ligands in columns
+ligand_target_matrix[1:5,1:5] 
 
-head(weighted_networks$lr_sig) # interactions and their weights in the ligand-receptor + signaling network
-
-head(weighted_networks$gr) # interactions and their weights in the gene regulatory network
+head(weighted_networks$lr_sig) 
+head(weighted_networks$gr) 
 
 #####step by step
 
@@ -217,8 +216,6 @@ p_dotplot
 
 celltype_order <- levels(Idents(seurat_obj)) 
 
-# Use this if cell type labels are the identities of your Seurat object
-# if not: indicate the celltype_col properly
 DE_table_top_ligands <- lapply(
   celltype_order[celltype_order %in% sender_celltypes],
   get_lfc_celltype, 
@@ -258,7 +255,7 @@ vis_ligand_receptor_network <- prepare_ligand_receptor_visualization(
   best_upstream_ligands,
   order_hclust = "both") 
 
-(make_heatmap_ggplot(t(vis_ligand_receptor_network), 
+make_heatmap_ggplot(t(vis_ligand_receptor_network), 
                      y_name = "Ligands", x_name = "Receptors",  
-                     color = "mediumvioletred", legend_title = "Prior interaction potential"))
+                     color = "mediumvioletred", legend_title = "Prior interaction potential")
 

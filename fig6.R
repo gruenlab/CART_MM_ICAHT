@@ -3,21 +3,47 @@ modules <- reticulate::py_module_available("leidenalg") && reticulate::py_module
 reticulate::py_available()
 require(RaceID)
 require(Matrix)
-
-
 sc<-readRDS("PATH/TO/SC_OBJ")
-meta.data<-readRDS("PATH/TO/supple_table8")
-meta.data$broad_ct
+meta.data<-readRDS("PATH/TO/METADATA")
+
+plotexpmap(sc,"IFNG",logsc=T,fr=F, um=T, cex=40,leg = FALSE,cells = meta.data[grep("No",meta.data$cyt),]$cells)
+plotexpmap(sc,"IFNG",logsc=T,fr=F, um=T, cex=40,leg = TRUE,map = FALSE,cells = meta.data[grep("No",meta.data$cyt),]$cells)
+
+
+plotexpmap(sc,"IFNG",logsc=T,fr=F, um=T, cex=40,leg = FALSE,cells = meta.data[grep("Yes",meta.data$cyt),]$cells)
+plotexpmap(sc,"IFNG",logsc=T,fr=F, um=T, cex=40,leg = TRUE,map = FALSE,cells = meta.data[grep("Yes",meta.data$cyt),]$cells)
+
+
+plotexpmap(sc,"AREG",logsc=T,fr=F, um=T, cex=40,leg = FALSE,cells = meta.data[grep("No",meta.data$cyt),]$cells)
+plotexpmap(sc,"AREG",logsc=T,fr=F, um=T, cex=40,leg = TRUE,map = FALSE,cells = meta.data[grep("No",meta.data$cyt),]$cells)
+
+plotexpmap(sc,"AREG",logsc=T,fr=F, um=T, cex=40,leg = FALSE,cells = meta.data[grep("Yes",meta.data$cyt),]$cells)
+plotexpmap(sc,"AREG",logsc=T,fr=F, um=T, cex=40,leg = TRUE,map = FALSE,cells = meta.data[grep("Yes",meta.data$cyt),]$cells)
+
+plotexpmap(sc,"EREG",logsc=T,fr=F, um=T, cex=40,leg = FALSE,cells = meta.data[grep("No",meta.data$cyt),]$cells)
+plotexpmap(sc,"EREG",logsc=T,fr=F, um=T, cex=40,leg = TRUE,map = FALSE,cells = meta.data[grep("No",meta.data$cyt),]$cells)
+
+plotexpmap(sc,"EREG",logsc=T,fr=F, um=T, cex=40,leg = FALSE,cells = meta.data[grep("Yes",meta.data$cyt),]$cells)
+plotexpmap(sc,"EREG",logsc=T,fr=F, um=T, cex=40,leg = TRUE,map = FALSE,cells = meta.data[grep("Yes",meta.data$cyt),]$cells)
+
+plotexpmap(sc,"TGFB1",logsc=T,fr=F, um=T, cex=40,leg = FALSE,cells = meta.data[grep("No",meta.data$cyt),]$cells)
+plotexpmap(sc,"TGFB1",logsc=T,fr=F, um=T, cex=40,leg = TRUE,map = FALSE,cells = meta.data[grep("No",meta.data$cyt),]$cells)
+
+plotexpmap(sc,"TGFB1",logsc=T,fr=F, um=T, cex=40,leg = FALSE,cells = meta.data[grep("Yes",meta.data$cyt),]$cells)
+plotexpmap(sc,"TGFB1",logsc=T,fr=F, um=T, cex=40,leg = TRUE,map = FALSE,cells = meta.data[grep("Yes",meta.data$cyt),]$cells)
 
 library(stringr)
 meta.data$broad_ct <-sub("Immune_","",meta.data$broad_ct)
 meta.data$broad_ct <-sub("Niche_","",meta.data$broad_ct)
+meta.data$cells <-sub("/.*", "", meta.data$cells)
 
-unique(meta.data$broad_ct)
 
-cDB<-readRDS("PATH/TO/CELLPHONEDB")
+CAR<-sc@expdata["Cilta_Braun_CAR_construct",]
+CAR<-names(CAR)[CAR>0]
+meta.data[meta.data$cells%in%CAR,]$broad_ct<-"CAR.T"
 
-#CellChatDB
+cDB<-readRDS("PATH/to/CellphoneDB")
+
 library(CellChat)
 
 DB <- CellChatDB.human
@@ -57,14 +83,11 @@ x <- unique(data.frame(Ligand=H_L,receptor=H_R))
 colnames(cDB)<-colnames(x)
 x <- unique( rbind(cDB,x) )
 
-## subsetting of cells to be included (if needed), e.g., when analyzing contributions of different samples to the same clustering
-###subset cytopenic cells here and re-run the script below to generate another dfa and dff
-f<-meta.data$cells[meta.data$cyt%in%"No_Cytopenia"]
-y<-meta.data$broad_ct[meta.data$cyt%in%"No_Cytopenia"]
-names(y)<-meta.data$cells[meta.data$cyt%in%"No_Cytopenia"]
+y<-meta.data$broad_ct
+names(y)<-meta.data$cells
 head(y)
 ## expression matrix
-z <- as.matrix(sc@ndata[,f])
+z <- as.matrix(sc@ndata)
 
 ## discard ligand and receptor pairs with ligand or receptor not contained in expression matrix
 f <- x[,1] %in% rownames(z) & x[,2] %in% rownames(z)
@@ -198,121 +221,118 @@ for ( i in names(df) ){
   dfa[[i]][,"ct2"] <- ordered_cell_pops[paste("cl",dfa[[i]]$cl2,sep=".")]
 }
 
-
-## make filtered list
-## CHANGE FILTERING PARAMETERS FOR DESIRED OUTPUT
 dff <- list()
 for ( i in 1:length(dfa) ){
   samp <- names(dfa)[i]
   tmp <- dfa[[samp]]
-  ## here...
-  f <- tmp$score > 0 & !is.na(tmp$fr1) & !is.na(tmp$fr2) & tmp$score > 0 & tmp$fr1 > 0 & tmp$fr2 >0& tmp$p12g >0
+  f <- tmp$score > .9 & !is.na(tmp$fr1) & !is.na(tmp$fr2) & tmp$score > 0.9 & tmp$fr1 > .15 & tmp$fr2 > .15& tmp$p12g > 2
   dff[[samp]] <- tmp[f,]
 }
 
+unique(dff$WT$ct1)
+l <- dff$WT[dff$WT$ct1%in%c("CAR.T","T.cell","pDC","Monocyte","Macrophage","Neutrophil" )&dff[[1]]$ct2%in%c("Infl.mesenchymal")& !dff[[1]]$ct1%in%c("Infl.mesenchymal"),]
 
-## write output
-out <- dff
-for ( i in names(out) ){
-  x <- out[[i]][,c("n1","n2","ct1","ct2","score","fr1","fr2","cl1","cl2")]
-  colnames(x) <- c("Ligand","Receptor","Cell Type Ligand","Cell Type Receptor","Score (max. equals 1)","Fraction Ligand+","Fraction Receptor+","cl1","cl2")
-  out[[i]] <- x
+library(circlize)
+library(dplyr)
+library(scales)
+
+plotInteractionsSimple_Arrow <- function(x, pop_cols = NULL, 
+                                         show_types = TRUE, show_legend = TRUE, 
+                                         show_clust = TRUE, lab.cex = 0.5, 
+                                         track.height = 0.1, legend.cex = .5) {
+  library(circlize)
+  
+  # Ensure numeric
+  x[,6] <- as.numeric(as.character(x[,6]))
+  x[,7] <- as.numeric(as.character(x[,7]))
+  
+  # Ligand and receptor names
+  lig_names <- paste(x[,3], x[,1], sep = "_")
+  rec_names <- paste(x[,4], x[,2], sep = "_")
+  
+  all_lig <- unique(lig_names)
+  all_rec <- unique(rec_names)
+  
+  # Interaction matrix
+  m <- matrix(0, nrow = length(all_lig), ncol = length(all_rec))
+  rownames(m) <- all_lig
+  colnames(m) <- all_rec
+  for (i in seq_len(nrow(x))) {
+    m[lig_names[i], rec_names[i]] <- x[i,6] * x[i,7]
+  }
+  
+  # Remove empty rows/cols
+  m <- m[rowSums(m) > 0, colSums(m) > 0, drop = FALSE]
+  
+  # Colors
+  all_cells <- sort(unique(c(x[,3], x[,4])))
+  if (is.null(pop_cols)) {
+    set.seed(123)
+    pop_cols <- setNames(rainbow(length(all_cells)), all_cells)
+  }
+  
+  lig_cell <- sapply(strsplit(rownames(m), "_"), `[`, 1)
+  rec_cell <- sapply(strsplit(colnames(m), "_"), `[`, 1)
+  sector_col <- c(pop_cols[lig_cell], pop_cols[rec_cell])
+  names(sector_col) <- c(rownames(m), colnames(m))
+  
+  link_col <- pop_cols[lig_cell]
+  link_col_mat <- matrix(rep(link_col, ncol(m)), nrow = nrow(m))
+  
+  circos.clear()
+  
+  # Correct gap.after based on actual number of sectors
+  n_lig <- nrow(m)
+  n_rec <- ncol(m)
+  gap.after <- c(rep(1, n_lig - 1), 10, rep(1, n_rec - 1), 10)
+  gap.after <- gap.after[1:(n_lig + n_rec)]  
+  
+  circos.par(
+    start.degree = -5, 
+    gap.after = gap.after, 
+    cell.padding = c(0, 0, 0, 0), 
+    points.overflow.warning = FALSE
+  )
+  
+  chordDiagram(
+    m, 
+    col = link_col_mat, 
+    grid.col = sector_col, 
+    directional = 1,
+    direction.type = c("arrows", "diffHeight"),
+    annotationTrack = "grid", 
+    preAllocateTracks = list(track.height = track.height)
+  )
+  
+  # Labels
+  if (show_clust) {
+    circos.trackPlotRegion(
+      track.index = 2, 
+      panel.fun = function(x, y) {
+        sn <- CELL_META$sector.index
+        circos.text(
+          CELL_META$xcenter, CELL_META$ycenter, 
+          gsub("^[^_]+_", "", sn), 
+          facing = "clockwise", niceFacing = TRUE, 
+          adj = c(0, 0.5), cex = lab.cex
+        )
+      }, 
+      bg.border = NA
+    )
+  }
+  
+  if (show_legend) {
+    legend("topleft", legend = names(pop_cols), col = pop_cols, pch = 15, 
+           cex = legend.cex, bty = "n")
+  }
 }
 
-out <- out[["WT"]]
+
+plotInteractionsSimple_Arrow(l)
 
 
-# you can show the statistics for all cell type pairs if you run the pipeline without filtering (thr > -Inf), i.e., you keep all pairs in the initial object df
 
 
-LRDotPlot <- function (l, cap = Inf, flo = -Inf){
-  l <- l[order(l$ct2),]
-  l <- l[order(l$ct1),]
-  
-  ct <-  paste(l$ct1,l$ct2,sep="_")
-  lr <- paste(l$n1,l$n2,sep="_")
-  
-  
-  data <- data.frame(LR = factor(lr), 
-                     CellType = factor(ct), Enrichment = l$p12g, 
-                     Score = l$score)
-  data[which(data$Enrichment > cap), "Enrichment"] <- cap
-  data[which(data$Enrichment < flo), "Enrichment"] <- flo
-  colorPalette = c("darkblue", "blue", "grey", "red", "darkred")
-  ColorRamp <- colorRampPalette(colorPalette)(100)
-  
-  print(ggplot(data, aes_string(x = "CellType", y = "LR")) + 
-          geom_point(aes_string(size = "Enrichment", color = "Score")) + 
-          scale_colour_gradientn(colours = ColorRamp) + theme(panel.grid.major = element_blank(),panel.grid.minor = element_blank(), panel.background = element_blank(), axis.line = element_line(colour = "black")) + theme(axis.text.x = element_text(angle = 90,hjust = 1)))
-  
-}
 
-
-dff_cyt <- list()
-for ( i in 1:length(dfa_cyt) ){
-  samp <- names(dfa_cyt)[i]
-  tmp <- dfa_cyt[[samp]]
-  f <- tmp$score > .9 & !is.na(tmp$fr1) & !is.na(tmp$fr2) & tmp$score > 0.9 & tmp$fr1 > .2 & tmp$fr2 > .2& tmp$p12g > 4
-  dff_cyt[[samp]] <- tmp[f,]
-}
-
-dff_nocyt <- list()
-for ( i in 1:length(dfa_nocyt) ){
-  samp <- names(dfa_nocyt)[i]
-  tmp <- dfa_nocyt[[samp]]
-  f <- tmp$score > .9 & !is.na(tmp$fr1) & !is.na(tmp$fr2) & tmp$score > 0.9 & tmp$fr1 > .2 & tmp$fr2 > .2& tmp$p12g > 4
-  dff_nocyt[[samp]] <- tmp[f,]
-}
-
-
-LRDotPlot <- function (l, cap = Inf, flo = -Inf){
-  l <- l[order(l$ct2),]
-  l <- l[order(l$ct1),]
-  
-  ct <-  paste(l$ct1,l$ct2,sep="_")
-  lr <- paste(l$n1,l$n2,sep="_")
-  
-  
-  data <- data.frame(LR = factor(lr), 
-                     CellType = factor(ct), Enrichment = l$p12g, 
-                     Score = l$score,cyt=l$cyt)
-  data[which(data$Enrichment > cap), "Enrichment"] <- cap
-  data[which(data$Enrichment < flo), "Enrichment"] <- flo
-  colorPalette = c("darkblue", "blue", "grey", "red", "darkred")
-  ColorRamp <- colorRampPalette(colorPalette)(100)
-  
-  print(ggplot(data, aes_string(x = "CellType", y = "LR")) + 
-          geom_point(aes_string(size = "Enrichment", color = "Score")) + facet_wrap(~ cyt)+
-          scale_colour_gradientn(colours = ColorRamp) + theme(panel.grid.major = element_blank(),panel.grid.minor = element_blank(), panel.background = element_blank(), axis.line = element_line(colour = "black")) + theme(axis.text.x = element_text(angle = 90,hjust = 1)))
-  
-}
-
-dff_nocyt[[1]]$ct1<-sub("cl.","",dff_nocyt[[1]]$ct1)
-dff_nocyt[[1]]$ct2<-sub("cl.","",dff_nocyt[[1]]$ct2)
-dff_cyt[[1]]$ct1<-sub("cl.","",dff_cyt[[1]]$ct1)
-dff_cyt[[1]]$ct2<-sub("cl.","",dff_cyt[[1]]$ct2)
-
-
-l_nocyt <- dff_nocyt[[1]][dff_nocyt[[1]]$ct1%in%c("T.cell","pDC","Monocyte","Macrophage","Neutrophil" )&dff_nocyt[[1]]$ct2%in%c("Infl.Mesenchymal","Myeloma.mesenchymal","Mesenchymal" ) & !dff_nocyt[[1]]$ct1%in%c("Infl.Mesenchymal","Myeloma.mesenchymal","Mesenchymal" ),]
-l_nocyt$cyt <- "No_Cyt"
-l_cyt <- dff_cyt[[1]][dff_cyt[[1]]$ct1%in%c("T.cell","pDC","Mocyte","Macrophage","Neutrophil" )&dff_cyt[[1]]$ct2%in%c("Infl.Mesenchymal","Myeloma.mesenchymal","Mesenchymal" ) & !dff_cyt[[1]]$ct1%in%c("Infl.Mesenchymal","Myeloma.mesenchymal","Mesenchymal" ),]
-l_cyt$cyt <- "Yes_Cyt"
-
-ll_nocyt <- dfa_nocyt[[1]][dfa_nocyt[[1]]$ct1%in%c("T.cell","pDC","Monocyte","Macrophage","Neutrophil"  )&dfa_nocyt[[1]]$ct2%in%c("Infl.Mesenchymal","Myeloma.mesenchymal","Mesenchymal" )& !dfa_nocyt[[1]]$ct1%in%c("Infl.Mesenchymal","Myeloma.mesenchymal","Mesenchymal" ),]
-ll_nocyt$cyt <- "No_Cyt"
-
-ll_cyt <- dfa_cyt[[1]][dfa_cyt[[1]]$ct1%in%c("T.cell","pDC","Monocyte","Macrophage","Neutrophil"  )&dfa_cyt[[1]]$ct2%in%c("Infl.Mesenchymal","Myeloma.mesenchymal","Mesenchymal" )& !dfa_cyt[[1]]$ct1%in%c("Infl.Mesenchymal","Myeloma.mesenchymal","Mesenchymal" ),]
-ll_cyt$cyt <- "Yes_Cyt"
-ll<-rbind(ll_nocyt,ll_cyt)
-l<-rbind(l_nocyt,l_cyt)
-
-ll$n <- paste(ll$n1,ll$n2,sep="_")
-l$n <- paste(l$n1,l$n2,sep="_")
-f <- ll$n %in% unique(l$n)
-ll <- ll[f,]
-ll$e<-paste(ll$ct1,ll$ct2,ll$cyt,ll$n,sep = "_")
-ll <- ll[!duplicated(ll$e), ]
-
-LRDotPlot(ll,flo=3,cap=4)
 
 

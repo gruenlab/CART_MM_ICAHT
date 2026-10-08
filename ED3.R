@@ -156,9 +156,9 @@ uv <- data.frame(basline_clinical_score = v, age = u)
 
 ggplot(uv, 
        aes(x = age, y = basline_clinical_score)) +
-  geom_point(color = "grey30") +   # optional: change point color
+  geom_point(color = "grey30") +   
   theme_classic() +
-  geom_smooth(method = lm, color = "red", fill = "red") +  # new line + shade colors
+  geom_smooth(method = lm, color = "red", fill = "red") + 
   scale_fill_viridis(discrete = TRUE) +
   sm_statCorr(color = "red", fill = "red", 
               text_size = 5) +
@@ -175,9 +175,9 @@ uv <- data.frame(D90_clinical_score = v, age = u)
 
 ggplot(uv, 
        aes(x = age, y = D90_clinical_score)) +
-  geom_point(color = "grey30") +   # optional: change point color
+  geom_point(color = "grey30") +  
   theme_classic() +
-  geom_smooth(method = lm, color = "red", fill = "red") +  # new line + shade colors
+  geom_smooth(method = lm, color = "red", fill = "red") +  
   scale_fill_viridis(discrete = TRUE) +
   sm_statCorr(color = "red", fill = "red", 
               text_size = 5) +
@@ -194,9 +194,9 @@ uv <- data.frame(mes_infl_score = v, age = u)
 
 ggplot(uv, 
        aes(x = age, y = mes_infl_score)) +
-  geom_point(color = "grey30") +   # optional: change point color
+  geom_point(color = "grey30") +  
   theme_classic() +
-  geom_smooth(method = lm, color = "red", fill = "red") +  # new line + shade colors
+  geom_smooth(method = lm, color = "red", fill = "red") +  
   scale_fill_viridis(discrete = TRUE) +
   sm_statCorr(color = "red", fill = "red", 
               text_size = 5) +
@@ -223,9 +223,9 @@ uv <- data_frame(D90_clinical_score = v, IL6_baseline = u)
 library(viridis)
 ggplot(uv, 
        aes(x = IL6_baseline, y = D90_clinical_score)) +
-  geom_point(color = "grey30") +   # optional: change point color
+  geom_point(color = "grey30") +  
   theme_classic() +
-  geom_smooth(method = lm, color = "#1f78b4", fill = "#a6cee3") +  # new line + shade colors
+  geom_smooth(method = lm, color = "#1f78b4", fill = "#a6cee3") +  
   scale_fill_viridis(discrete = TRUE) +
   sm_statCorr(color = "#1f78b4", fill = "#a6cee3", 
               text_size = 5) +
@@ -244,9 +244,9 @@ uv <- data_frame(Mes_infl = v, IL6_baseline = u)
 library(viridis)
 ggplot(uv, 
        aes(x = IL6_baseline, y = Mes_infl)) +
-  geom_point(color = "grey30") +   # optional: change point color
+  geom_point(color = "grey30") +  
   theme_classic() +
-  geom_smooth(method = lm, color = "#1f78b4", fill = "#a6cee3") +  # new line + shade colors
+  geom_smooth(method = lm, color = "#1f78b4", fill = "#a6cee3") +  
   scale_fill_viridis(discrete = TRUE) +
   sm_statCorr(color = "#1f78b4", fill = "#a6cee3", 
               text_size = 5) +
@@ -264,9 +264,9 @@ uv <- data_frame(HSC_sen = v, IL6_baseline = u)
 library(viridis)
 ggplot(uv, 
        aes(x = IL6_baseline, y = HSC_sen)) +
-  geom_point(color = "grey30") +   # optional: change point color
+  geom_point(color = "grey30") +  
   theme_classic() +
-  geom_smooth(method = lm, color = "#1f78b4", fill = "#a6cee3") +  # new line + shade colors
+  geom_smooth(method = lm, color = "#1f78b4", fill = "#a6cee3") +  
   scale_fill_viridis(discrete = TRUE) +
   sm_statCorr(color = "#1f78b4", fill = "#a6cee3", 
               text_size = 5) +
@@ -284,9 +284,9 @@ uv <- data_frame(clinical_score = v, IL6_peak = u)
 library(viridis)
 ggplot(uv, 
        aes(x = IL6_peak, y = clinical_score)) +
-  geom_point(color = "grey30") +   # optional: change point color
+  geom_point(color = "grey30") +  
   theme_classic() +
-  geom_smooth(method = lm, color = "#1f78b4", fill = "#a6cee3") +  # new line + shade colors
+  geom_smooth(method = lm, color = "#1f78b4", fill = "#a6cee3") +  
   scale_fill_viridis(discrete = TRUE) +
   sm_statCorr(color = "#1f78b4", fill = "#a6cee3", 
               text_size = 5) +
@@ -305,9 +305,9 @@ uv <- data_frame(mes_infl = v, IL6_peak = u)
 library(viridis)
 ggplot(uv, 
        aes(x = IL6_peak, y = mes_infl)) +
-  geom_point(color = "grey30") +   # optional: change point color
+  geom_point(color = "grey30") +  
   theme_classic() +
-  geom_smooth(method = lm, color = "#1f78b4", fill = "#a6cee3") +  # new line + shade colors
+  geom_smooth(method = lm, color = "#1f78b4", fill = "#a6cee3") +  
   scale_fill_viridis(discrete = TRUE) +
   sm_statCorr(color = "#1f78b4", fill = "#a6cee3", 
               text_size = 5) +
@@ -326,9 +326,9 @@ uv <- data_frame(HSC_sen = v, IL6_peak = u)
 library(viridis)
 ggplot(uv, 
        aes(x = IL6_peak, y = HSC_sen)) +
-  geom_point(color = "grey30") +   # optional: change point color
+  geom_point(color = "grey30") +  
   theme_classic() +
-  geom_smooth(method = lm, color = "#1f78b4", fill = "#a6cee3") +  # new line + shade colors
+  geom_smooth(method = lm, color = "#1f78b4", fill = "#a6cee3") +  
   scale_fill_viridis(discrete = TRUE) +
   sm_statCorr(color = "#1f78b4", fill = "#a6cee3", 
               text_size = 5) +

@@ -1,5 +1,5 @@
 sc<-readRDS("PATH/TO/SC_OBJ")
-meta.data<-readRDS("PATH/TO/METADATA")
+meta.data<-readRDS("PATH/TO/suppl_table8")
 reticulate::use_python("/opt/python/bin/python",required=T)
 modules <- reticulate::py_module_available("leidenalg") && reticulate::py_module_available("igraph")
 reticulate::py_available()

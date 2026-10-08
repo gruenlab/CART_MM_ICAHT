@@ -4,7 +4,7 @@ reticulate::py_available()
 require(RaceID)
 require(Matrix)
 sc<-readRDS("PATH/TO/SC_OBJ")
-meta.data<-readRDS("PATH/TO/suppl_table8")
+meta.data<-readRDS("PATH/TO/METADATA")
 
 plotsymbolsmap2 <- function (object, types, subset = NULL, samples_col = NULL, cex = 0.5, 
                              fr = FALSE, um = FALSE, leg = TRUE, map = TRUE, cex.legend = 0.75, 
