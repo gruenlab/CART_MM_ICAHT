@@ -4,7 +4,7 @@ reticulate::py_available()
 require(RaceID)
 require(Matrix)
 sc<-readRDS("PATH/TO/SC_OBJ")
-meta.data<-readRDS("PATH/TO/METADATA")
+meta.data<-readRDS("PATH/TO/suppl_table8")
 
 plotexpmap(sc,"IL6",logsc=T,fr=F, um=T, cex=40,leg = FALSE,cells = meta.data[grep("Yes",meta.data$cyt),]$cells)
 plotexpmap(sc,"IL6",logsc=T,fr=F, um=T, cex=40,leg = TRUE,map = FALSE,cells = meta.data[grep("Yes",meta.data$cyt),]$cells)
