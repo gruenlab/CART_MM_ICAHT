@@ -133,7 +133,7 @@ geneset_oi <- DE_table_receiver %>% filter(p_val_adj <= 0.05 & abs(avg_log2FC) >
 geneset_oi <- geneset_oi %>% .[. %in% rownames(ligand_target_matrix)]
 
 require(readr)
-senMayo<-read_tsv("~/human/reference/senMayo/SAUL_SEN_MAYO.v2023.2.Hs.tsv")
+senMayo<-read_tsv("./SAUL_SEN_MAYO.v2023.2.Hs.tsv") # Suppl_Table7 of Saul et al., 2022 Pubmed 35974106 
 senMayo_gs<- senMayo[17,2]
 senMayo_gs<-str_split_fixed(senMayo_gs,",",125)
 
