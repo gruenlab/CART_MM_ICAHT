@@ -77,9 +77,9 @@ ggplot(m,
 
 
 ####CAR T 
-x <- readMM("~/human/revision/CAR_mapping/CAR_mapped_counts/C1_counts/result_dev.mtx")
-f <- read.csv ("~/human/revision/CAR_mapping/CAR_mapped_counts/C1_counts/result_dev.genes.txt", sep = "\t", header = FALSE)
-b <- read.csv ("~/human/revision/CAR_mapping/CAR_mapped_counts/C1_counts/result_dev.barcodes.txt", sep = "\t", header = FALSE)
+x <- readMM("./C1_counts/result_dev.mtx")
+f <- read.csv ("./C1_counts/result_dev.genes.txt", sep = "\t", header = FALSE)
+b <- read.csv ("./C1_counts/result_dev.barcodes.txt", sep = "\t", header = FALSE)
 xM <- as (x, "dgCMatrix")
 
 dimnames(xM) <- list(as.character(b$V1), as.character(f$V1))
@@ -89,9 +89,9 @@ xM <- t(xM)
 cs <- colSums(xM)
 C1 <- xM [, cs>1000]
 
-x <- readMM("~/human/revision/CAR_mapping/CAR_mapped_counts/C2_counts/result_dev.mtx")
-f <- read.csv ("~/human/revision/CAR_mapping/CAR_mapped_counts/C2_counts/result_dev.genes.txt", sep = "\t", header = FALSE)
-b <- read.csv ("~/human/revision/CAR_mapping/CAR_mapped_counts/C2_counts/result_dev.barcodes.txt", sep = "\t", header = FALSE)
+x <- readMM("./C2_counts/result_dev.mtx")
+f <- read.csv ("./C2_counts/result_dev.genes.txt", sep = "\t", header = FALSE)
+b <- read.csv ("./C2_counts/result_dev.barcodes.txt", sep = "\t", header = FALSE)
 xM <- as (x, "dgCMatrix")
 
 dimnames(xM) <- list(as.character(b$V1), as.character(f$V1))
@@ -102,9 +102,9 @@ xM <- t(xM)
 cs <- colSums(xM)
 C2 <- xM [, cs>1000]
 
-x <- readMM("~/human/revision/CAR_mapping/CAR_mapped_counts/C3_counts/result_dev.mtx")
-f <- read.csv ("~/human/revision/CAR_mapping/CAR_mapped_counts/C3_counts/result_dev.genes.txt", sep = "\t", header = FALSE)
-b <- read.csv ("~/human/revision/CAR_mapping/CAR_mapped_counts/C3_counts/result_dev.barcodes.txt", sep = "\t", header = FALSE)
+x <- readMM("./C3_counts/result_dev.mtx")
+f <- read.csv ("./C3_counts/result_dev.genes.txt", sep = "\t", header = FALSE)
+b <- read.csv ("./C3_counts/result_dev.barcodes.txt", sep = "\t", header = FALSE)
 xM <- as (x, "dgCMatrix")
 
 dimnames(xM) <- list(as.character(b$V1), as.character(f$V1))
@@ -115,9 +115,9 @@ xM <- t(xM)
 cs <- colSums(xM)
 C3 <- xM [, cs>1000]
 
-x <- readMM("~/human/revision/CAR_mapping/CAR_mapped_counts/C4_counts/result_dev.mtx")
-f <- read.csv ("~/human/revision/CAR_mapping/CAR_mapped_counts/C4_counts/result_dev.genes.txt", sep = "\t", header = FALSE)
-b <- read.csv ("~/human/revision/CAR_mapping/CAR_mapped_counts/C4_counts/result_dev.barcodes.txt", sep = "\t", header = FALSE)
+x <- readMM("./C4_counts/result_dev.mtx")
+f <- read.csv ("./C4_counts/result_dev.genes.txt", sep = "\t", header = FALSE)
+b <- read.csv ("./C4_counts/result_dev.barcodes.txt", sep = "\t", header = FALSE)
 xM <- as (x, "dgCMatrix")
 
 dimnames(xM) <- list(as.character(b$V1), as.character(f$V1))
@@ -128,9 +128,9 @@ xM <- t(xM)
 cs <- colSums(xM)
 C4 <- xM [, cs>1000]
 
-x <- readMM("~/human/revision/CAR_mapping/CAR_mapped_counts/NC1_counts/result_dev.mtx")
-f <- read.csv ("~/human/revision/CAR_mapping/CAR_mapped_counts/NC1_counts/result_dev.genes.txt", sep = "\t", header = FALSE)
-b <- read.csv ("~/human/revision/CAR_mapping/CAR_mapped_counts/NC1_counts/result_dev.barcodes.txt", sep = "\t", header = FALSE)
+x <- readMM("./NC1_counts/result_dev.mtx")
+f <- read.csv ("./NC1_counts/result_dev.genes.txt", sep = "\t", header = FALSE)
+b <- read.csv ("./NC1_counts/result_dev.barcodes.txt", sep = "\t", header = FALSE)
 xM <- as (x, "dgCMatrix")
 
 dimnames(xM) <- list(as.character(b$V1), as.character(f$V1))
@@ -141,9 +141,9 @@ xM <- t(xM)
 cs <- colSums(xM)
 NC1 <- xM [, cs>1000]
 
-x <- readMM("~/human/revision/CAR_mapping/CAR_mapped_counts/NC2_counts/result_dev.mtx")
-f <- read.csv ("~/human/revision/CAR_mapping/CAR_mapped_counts/NC2_counts/result_dev.genes.txt", sep = "\t", header = FALSE)
-b <- read.csv ("~/human/revision/CAR_mapping/CAR_mapped_counts/NC2_counts/result_dev.barcodes.txt", sep = "\t", header = FALSE)
+x <- readMM("./NC2_counts/result_dev.mtx")
+f <- read.csv ("./NC2_counts/result_dev.genes.txt", sep = "\t", header = FALSE)
+b <- read.csv ("./NC2_counts/result_dev.barcodes.txt", sep = "\t", header = FALSE)
 xM <- as (x, "dgCMatrix")
 
 dimnames(xM) <- list(as.character(b$V1), as.character(f$V1))
@@ -155,9 +155,9 @@ cs <- colSums(xM)
 NC2 <- xM [, cs>1000]
 
 
-x <- readMM("~/human/revision/CAR_mapping/CAR_mapped_counts/NC3_counts/result_dev.mtx")
-f <- read.csv ("~/human/revision/CAR_mapping/CAR_mapped_counts/NC3_counts/result_dev.genes.txt", sep = "\t", header = FALSE)
-b <- read.csv ("~/human/revision/CAR_mapping/CAR_mapped_counts/NC3_counts/result_dev.barcodes.txt", sep = "\t", header = FALSE)
+x <- readMM("./NC3_counts/result_dev.mtx")
+f <- read.csv ("./NC3_counts/result_dev.genes.txt", sep = "\t", header = FALSE)
+b <- read.csv ("./NC3_counts/result_dev.barcodes.txt", sep = "\t", header = FALSE)
 xM <- as (x, "dgCMatrix")
 
 dimnames(xM) <- list(as.character(b$V1), as.character(f$V1))
@@ -168,9 +168,9 @@ xM <- t(xM)
 cs <- colSums(xM)
 NC3 <- xM [, cs>1000]
 
-x <- readMM("~/human/revision/CAR_mapping/CAR_mapped_counts/NC4_counts/result_dev.mtx")
-f <- read.csv ("~/human/revision/CAR_mapping/CAR_mapped_counts/NC4_counts/result_dev.genes.txt", sep = "\t", header = FALSE)
-b <- read.csv ("~/human/revision/CAR_mapping/CAR_mapped_counts/NC4_counts/result_dev.barcodes.txt", sep = "\t", header = FALSE)
+x <- readMM("./NC4_counts/result_dev.mtx")
+f <- read.csv ("./NC4_counts/result_dev.genes.txt", sep = "\t", header = FALSE)
+b <- read.csv ("./NC4_counts/result_dev.barcodes.txt", sep = "\t", header = FALSE)
 xM <- as (x, "dgCMatrix")
 
 dimnames(xM) <- list(as.character(b$V1), as.character(f$V1))
@@ -181,9 +181,9 @@ xM <- t(xM)
 cs <- colSums(xM)
 NC4 <- xM [, cs>1000]
 
-x <- readMM("~/human/revision/CAR_mapping/CAR_mapped_counts/NC5_counts/result_dev.mtx")
-f <- read.csv ("~/human/revision/CAR_mapping/CAR_mapped_counts/NC5_counts/result_dev.genes.txt", sep = "\t", header = FALSE)
-b <- read.csv ("~/human/revision/CAR_mapping/CAR_mapped_counts/NC5_counts/result_dev.barcodes.txt", sep = "\t", header = FALSE)
+x <- readMM("./NC5_counts/result_dev.mtx")
+f <- read.csv ("./NC5_counts/result_dev.genes.txt", sep = "\t", header = FALSE)
+b <- read.csv ("./NC5_counts/result_dev.barcodes.txt", sep = "\t", header = FALSE)
 xM <- as (x, "dgCMatrix")
 
 dimnames(xM) <- list(as.character(b$V1), as.character(f$V1))
@@ -194,9 +194,9 @@ xM <- t(xM)
 cs <- colSums(xM)
 NC5 <- xM [, cs>1000]
 
-x <- readMM("~/human/revision/CAR_mapping/CAR_mapped_counts/NC6_counts/result_dev.mtx")
-f <- read.csv ("~/human/revision/CAR_mapping/CAR_mapped_counts/NC6_counts/result_dev.genes.txt", sep = "\t", header = FALSE)
-b <- read.csv ("~/human/revision/CAR_mapping/CAR_mapped_counts/NC6_counts/result_dev.barcodes.txt", sep = "\t", header = FALSE)
+x <- readMM("./NC6_counts/result_dev.mtx")
+f <- read.csv ("./NC6_counts/result_dev.genes.txt", sep = "\t", header = FALSE)
+b <- read.csv ("./NC6_counts/result_dev.barcodes.txt", sep = "\t", header = FALSE)
 xM <- as (x, "dgCMatrix")
 
 dimnames(xM) <- list(as.character(b$V1), as.character(f$V1))
@@ -207,9 +207,9 @@ xM <- t(xM)
 cs <- colSums(xM)
 NC6 <- xM [, cs>1000]
 
-x <- readMM("~/human/revision/CAR_mapping/CAR_mapped_counts/NC7_counts/result_dev.mtx")
-f <- read.csv ("~/human/revision/CAR_mapping/CAR_mapped_counts/NC7_counts/result_dev.genes.txt", sep = "\t", header = FALSE)
-b <- read.csv ("~/human/revision/CAR_mapping/CAR_mapped_counts/NC7_counts/result_dev.barcodes.txt", sep = "\t", header = FALSE)
+x <- readMM("./NC7_counts/result_dev.mtx")
+f <- read.csv ("./NC7_counts/result_dev.genes.txt", sep = "\t", header = FALSE)
+b <- read.csv ("./NC7_counts/result_dev.barcodes.txt", sep = "\t", header = FALSE)
 xM <- as (x, "dgCMatrix")
 
 dimnames(xM) <- list(as.character(b$V1), as.character(f$V1))
@@ -220,9 +220,9 @@ xM <- t(xM)
 cs <- colSums(xM)
 NC7 <- xM [, cs>1000]
 
-x <- readMM("~/human/revision/CAR_mapping/CAR_mapped_counts/NC8_counts/result_dev.mtx")
-f <- read.csv ("~/human/revision/CAR_mapping/CAR_mapped_counts/NC8_counts/result_dev.genes.txt", sep = "\t", header = FALSE)
-b <- read.csv ("~/human/revision/CAR_mapping/CAR_mapped_counts/NC8_counts/result_dev.barcodes.txt", sep = "\t", header = FALSE)
+x <- readMM("./NC8_counts/result_dev.mtx")
+f <- read.csv ("./NC8_counts/result_dev.genes.txt", sep = "\t", header = FALSE)
+b <- read.csv ("./NC8_counts/result_dev.barcodes.txt", sep = "\t", header = FALSE)
 xM <- as (x, "dgCMatrix")
 
 dimnames(xM) <- list(as.character(b$V1), as.character(f$V1))
@@ -233,9 +233,9 @@ xM <- t(xM)
 cs <- colSums(xM)
 NC8 <- xM [, cs>1000]
 
-x <- readMM("~/human/revision/CAR_mapping/CAR_mapped_counts/NC9_counts/result_dev.mtx")
-f <- read.csv ("~/human/revision/CAR_mapping/CAR_mapped_counts/NC9_counts/result_dev.genes.txt", sep = "\t", header = FALSE)
-b <- read.csv ("~/human/revision/CAR_mapping/CAR_mapped_counts/NC9_counts/result_dev.barcodes.txt", sep = "\t", header = FALSE)
+x <- readMM("./NC9_counts/result_dev.mtx")
+f <- read.csv ("./NC9_counts/result_dev.genes.txt", sep = "\t", header = FALSE)
+b <- read.csv ("./NC9_counts/result_dev.barcodes.txt", sep = "\t", header = FALSE)
 xM <- as (x, "dgCMatrix")
 
 dimnames(xM) <- list(as.character(b$V1), as.character(f$V1))
@@ -246,9 +246,9 @@ xM <- t(xM)
 cs <- colSums(xM)
 NC9 <- xM [, cs>1000]
 
-x <- readMM("~/human/revision/CAR_mapping/CAR_mapped_counts/NC10_counts/result_dev.mtx")
-f <- read.csv ("~/human/revision/CAR_mapping/CAR_mapped_counts/NC10_counts/result_dev.genes.txt", sep = "\t", header = FALSE)
-b <- read.csv ("~/human/revision/CAR_mapping/CAR_mapped_counts/NC10_counts/result_dev.barcodes.txt", sep = "\t", header = FALSE)
+x <- readMM("./NC10_counts/result_dev.mtx")
+f <- read.csv ("./NC10_counts/result_dev.genes.txt", sep = "\t", header = FALSE)
+b <- read.csv ("./NC10_counts/result_dev.barcodes.txt", sep = "\t", header = FALSE)
 xM <- as (x, "dgCMatrix")
 
 dimnames(xM) <- list(as.character(b$V1), as.character(f$V1))
@@ -259,9 +259,9 @@ xM <- t(xM)
 cs <- colSums(xM)
 NC10 <- xM [, cs>1000]
 
-x <- readMM("~/human/revision/CAR_mapping/CAR_mapped_counts/NC11_counts/result_dev.mtx")
-f <- read.csv ("~/human/revision/CAR_mapping/CAR_mapped_counts/NC11_counts/result_dev.genes.txt", sep = "\t", header = FALSE)
-b <- read.csv ("~/human/revision/CAR_mapping/CAR_mapped_counts/NC11_counts/result_dev.barcodes.txt", sep = "\t", header = FALSE)
+x <- readMM("./NC11_counts/result_dev.mtx")
+f <- read.csv ("./NC11_counts/result_dev.genes.txt", sep = "\t", header = FALSE)
+b <- read.csv ("./NC11_counts/result_dev.barcodes.txt", sep = "\t", header = FALSE)
 xM <- as (x, "dgCMatrix")
 
 dimnames(xM) <- list(as.character(b$V1), as.character(f$V1))
@@ -272,9 +272,9 @@ xM <- t(xM)
 cs <- colSums(xM)
 NC11 <- xM [, cs>1000]
 
-x <- readMM("~/human/revision/CAR_mapping/CAR_mapped_counts/NC12_counts/result_dev.mtx")
-f <- read.csv ("~/human/revision/CAR_mapping/CAR_mapped_counts/NC12_counts/result_dev.genes.txt", sep = "\t", header = FALSE)
-b <- read.csv ("~/human/revision/CAR_mapping/CAR_mapped_counts/NC12_counts/result_dev.barcodes.txt", sep = "\t", header = FALSE)
+x <- readMM("./NC12_counts/result_dev.mtx")
+f <- read.csv ("./NC12_counts/result_dev.genes.txt", sep = "\t", header = FALSE)
+b <- read.csv ("./NC12_counts/result_dev.barcodes.txt", sep = "\t", header = FALSE)
 xM <- as (x, "dgCMatrix")
 
 dimnames(xM) <- list(as.character(b$V1), as.character(f$V1))
@@ -285,9 +285,9 @@ xM <- t(xM)
 cs <- colSums(xM)
 NC12 <- xM [, cs>1000]
 
-x <- readMM("~/human/revision/CAR_mapping/CAR_mapped_counts/P1_counts/result_dev.mtx")
-f <- read.csv ("~/human/revision/CAR_mapping/CAR_mapped_counts/P1_counts/result_dev.genes.txt", sep = "\t", header = FALSE)
-b <- read.csv ("~/human/revision/CAR_mapping/CAR_mapped_counts/P1_counts/result_dev.barcodes.txt", sep = "\t", header = FALSE)
+x <- readMM("./P1_counts/result_dev.mtx")
+f <- read.csv ("./P1_counts/result_dev.genes.txt", sep = "\t", header = FALSE)
+b <- read.csv ("./P1_counts/result_dev.barcodes.txt", sep = "\t", header = FALSE)
 xM <- as (x, "dgCMatrix")
 
 dimnames(xM) <- list(as.character(b$V1), as.character(f$V1))
