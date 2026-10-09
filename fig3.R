@@ -71,7 +71,7 @@ msigdbr_list<-c(msigdbr_list,msigdbr_listC2)
 
 require(readr)
 require(fgsea)
-senMayo<-read_tsv("~/human/reference/senMayo/SAUL_SEN_MAYO.v2023.2.Hs.tsv")
+senMayo<-read_tsv("./SAUL_SEN_MAYO.v2023.2.Hs.tsv") # Suppl_Table7 of Saul et al., 2022 Pubmed 35974106 
 senMayo_gs<- senMayo[17,2]
 senMayo_gs<-str_split_fixed(senMayo_gs,",",125)
 abc <-senMayo_gs
